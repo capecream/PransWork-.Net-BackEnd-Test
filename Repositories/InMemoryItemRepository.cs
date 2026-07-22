@@ -2,12 +2,7 @@ using Backend.Models;
 
 namespace Backend.Repositories
 {
-    /// <summary>
-    /// เก็บข้อมูลไว้ใน memory (List) เพื่อให้รันทดสอบได้ทันที
-    /// โดยไม่ต้องติดตั้งหรือตั้งค่าฐานข้อมูลเพิ่ม
-    /// ข้อมูลจะหายเมื่อ restart โปรแกรม — ถ้าต้องการ persist จริง
-    /// ค่อยเปลี่ยนมาใช้ Entity Framework Core ทีหลังโดยแก้แค่ไฟล์นี้ไฟล์เดียว
-    /// </summary>
+
     public class InMemoryItemRepository : IItemRepository
     {
         private readonly List<Item> _items = new()

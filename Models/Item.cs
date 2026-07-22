@@ -1,9 +1,5 @@
 namespace Backend.Models
 {
-    /// <summary>
-    /// Entity หลักของระบบ ตรงกับ Item model ฝั่ง Flutter
-    /// (Domain layer: เก็บแค่โครงสร้างข้อมูล ไม่มี logic ธุรกิจ)
-    /// </summary>
     public class Item
     {
         public int Id { get; set; }

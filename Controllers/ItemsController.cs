@@ -4,14 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
-    /// <summary>
-    /// API layer: รับ HTTP request แล้วส่งต่อให้ Service
-    /// ไม่มี business logic อยู่ในนี้ มีแค่การแปลง request/response
-    /// Endpoint ตรงกับที่ฝั่ง Flutter (ApiService) เรียกใช้:
-    ///   GET  /api/items
-    ///   GET  /api/items/{id}
-    ///   POST /api/items
-    /// </summary>
+
     [ApiController]
     [Route("api/[controller]")]
     public class ItemsController : ControllerBase
