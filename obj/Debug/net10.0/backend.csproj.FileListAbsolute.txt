@@ -31,3 +31,4 @@ A:\FlutterTestParnsWork\backend\obj\Debug\net10.0\refint\backend.dll
 A:\FlutterTestParnsWork\backend\obj\Debug\net10.0\backend.pdb
 A:\FlutterTestParnsWork\backend\obj\Debug\net10.0\backend.genruntimeconfig.cache
 A:\FlutterTestParnsWork\backend\obj\Debug\net10.0\ref\backend.dll
+A:\FlutterTestParnsWork\backend\obj\Debug\net10.0\backend.sourcelink.json

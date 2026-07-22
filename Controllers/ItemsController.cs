@@ -47,5 +47,48 @@ namespace Backend.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<Item>> Update(int id, [FromBody] Item item)
+        {
+            try
+            {
+                var updated = await _itemService.UpdateItemAsync(id, item);
+                if (updated == null)
+                {
+                    return NotFound(new { message = $"ไม่พบรายการ id = {id}" });
+                }
+                return Ok(updated);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _itemService.DeleteItemAsync(id);
+            if (!deleted)
+            {
+                return NotFound(new { message = $"ไม่พบรายการ id = {id}" });
+            }
+            return NoContent();
+        }
+
+        [HttpPost("bulk-delete")]
+        public async Task<IActionResult> BulkDelete([FromBody] BulkDeleteRequest request)
+        {
+            try
+            {
+                var deletedCount = await _itemService.DeleteItemsAsync(request.Ids);
+                return Ok(new { deletedCount });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

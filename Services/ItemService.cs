@@ -3,12 +3,7 @@ using Backend.Repositories;
 
 namespace Backend.Services
 {
-    /// <summary>
-    /// รวม business logic ไว้ที่นี่ (Application layer)
-    /// เช่น validation, การกำหนดค่า default ก่อนบันทึก
-    /// แยกออกจาก Controller เพื่อให้ทดสอบด้วย unit test ได้ง่าย
-    /// โดยไม่ต้องพึ่งพา ASP.NET Core pipeline
-    /// </summary>
+
     public class ItemService : IItemService
     {
         private readonly IItemRepository _repository;
@@ -30,6 +25,32 @@ namespace Backend.Services
 
         public Task<Item> CreateItemAsync(Item item)
         {
+            ValidateItem(item);
+            return _repository.AddAsync(item);
+        }
+
+        public Task<Item?> UpdateItemAsync(int id, Item item)
+        {
+            ValidateItem(item);
+            return _repository.UpdateAsync(id, item);
+        }
+
+        public Task<bool> DeleteItemAsync(int id)
+        {
+            return _repository.DeleteAsync(id);
+        }
+
+        public Task<int> DeleteItemsAsync(List<int> ids)
+        {
+            if (ids == null || ids.Count == 0)
+            {
+                throw new ArgumentException("กรุณาระบุ id ที่ต้องการลบอย่างน้อย 1 รายการ");
+            }
+            return _repository.DeleteManyAsync(ids);
+        }
+
+        private static void ValidateItem(Item item)
+        {
             if (string.IsNullOrWhiteSpace(item.Name))
             {
                 throw new ArgumentException("กรุณาระบุชื่อรายการ");
@@ -39,8 +60,6 @@ namespace Backend.Services
             {
                 item.Category = "General";
             }
-
-            return _repository.AddAsync(item);
         }
     }
 }

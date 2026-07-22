@@ -2,14 +2,14 @@ using Backend.Models;
 
 namespace Backend.Services
 {
-    /// <summary>
-    /// Interface ของ business logic (Application layer)
-    /// Controller จะเรียกผ่าน interface นี้ ไม่เรียก Repository ตรงๆ
-    /// </summary>
+
     public interface IItemService
     {
         Task<List<Item>> GetAllItemsAsync();
         Task<Item?> GetItemByIdAsync(int id);
         Task<Item> CreateItemAsync(Item item);
+        Task<Item?> UpdateItemAsync(int id, Item item);
+        Task<bool> DeleteItemAsync(int id);
+        Task<int> DeleteItemsAsync(List<int> ids);
     }
 }

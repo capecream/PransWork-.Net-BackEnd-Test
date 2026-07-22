@@ -31,5 +31,42 @@ namespace Backend.Repositories
             _items.Add(item);
             return Task.FromResult(item);
         }
+
+        public Task<Item?> UpdateAsync(int id, Item item)
+        {
+            var existing = _items.FirstOrDefault(i => i.Id == id);
+            if (existing == null)
+            {
+                return Task.FromResult<Item?>(null);
+            }
+
+            existing.Name = item.Name;
+            existing.Description = item.Description;
+            existing.Category = item.Category;
+
+            return Task.FromResult<Item?>(existing);
+        }
+
+        public Task<bool> DeleteAsync(int id)
+        {
+            var existing = _items.FirstOrDefault(i => i.Id == id);
+            if (existing == null)
+            {
+                return Task.FromResult(false);
+            }
+
+            _items.Remove(existing);
+            return Task.FromResult(true);
+        }
+
+        public Task<int> DeleteManyAsync(List<int> ids)
+        {
+            var toRemove = _items.Where(i => ids.Contains(i.Id)).ToList();
+            foreach (var item in toRemove)
+            {
+                _items.Remove(item);
+            }
+            return Task.FromResult(toRemove.Count);
+        }
     }
 }
